@@ -1,0 +1,55 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+repositories {
+    mavenLocal()
+    maven { url "http://nexus.starbucks.net/content/groups/releases/" }
+    maven { url "http://nexus.starbucks.net/content/groups/snapshots/" }
+}
+
+dependencies {
+    providedCompile group: 'org.apache.openejb', name: 'javaee-api', version: '6.0-6'
+    providedCompile group: 'org.apache.cxf', name: 'cxf-rt-frontend-jaxrs', version: '2.6.16'
+    providedCompile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.12'
+    providedCompile group: 'org.apache.commons', name: 'commons-lang3', version: '3.3.2'
+    providedCompile group: 'commons-collections', name: 'commons-collections', version: '3.2.2'
+    providedCompile group: 'mysql', name: 'mysql-connector-java', version: '6.0.5'
+
+    testCompile group: 'org.testng', name: 'testng', version: '6.9.10'
+    testCompile 'org.easymock:easymock:3.4'
+    testCompile 'junit:junit:4.12' 
+}
+
+eclipse {
+    classpath {
+        defaultOutputDir = sourceSets.main.output.classesDir
+    }
+}
+
+war {
+    exclude('WEB-INF/lib/tomitribe-util*.jar');
+}
+
+task warNoAuth(type: War, dependsOn: classes) {
+    classifier 'noauth'
+    exclude '**/web*.xml'
+    exclude '**/context.xml'
+}
+
+task warBasicAuth(type: War, dependsOn: classes) {
+    classifier 'basicauth'
+    exclude '**/web*.xml'
+    exclude '**/context.xml'
+    webXml = file('src/main/webapp/WEB-INF/web-basic-auth-reqd.xml')
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier "sources"
+}
+
+task javadocJar(type: Jar) {
+    from javadoc
+    classifier "javadoc"
+}

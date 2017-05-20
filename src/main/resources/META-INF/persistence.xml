@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://java.sun.com/xml/ns/persistence" 
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0" >
+    <persistence-unit name="sbux-forms-db">
+		<jta-data-source>javaClub</jta-data-source>
+		<class>com.sbux.ebs.surveyforms.entity.InputTypeEntity</class>
+		<class>com.sbux.ebs.surveyforms.entity.OptionChoiceEntity</class>
+		<class>com.sbux.ebs.surveyforms.entity.SurveyQuestionEntity</class>
+		<class>com.sbux.ebs.surveyforms.entity.RoleAssignmentEntity</class>
+		<class>com.sbux.ebs.surveyforms.entity.RoleEntity</class>
+		<class>com.sbux.ebs.surveyforms.entity.UserEntity</class>
+		<class>com.sbux.ebs.surveyforms.entity.AnswerEntity</class>
+		<class>com.sbux.ebs.surveyforms.entity.SurveyEntity</class>
+		<class>com.sbux.ebs.surveyforms.entity.UserSurveyAssignmentEntity</class>
+	</persistence-unit>
+</persistence>
